@@ -1,27 +1,33 @@
 package com.intern.ecom.entity.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "user_address")
 public class UserAddress {
     @Id
+    @Size(max = 40)
     @Column(name = "uuid_address", nullable = false, length = 40)
     private String uuidAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uuid_user",referencedColumnName = "uuid_user")
+    @JoinColumn(name = "uuid_user")
     private User uuidUser;
 
+    @Size(max = 15)
     @Column(name = "mobile", length = 15)
     private String mobile;
 
+    @Size(max = 255)
     @Column(name = "city")
     private String city;
 
+    @Size(max = 255)
     @Column(name = "street")
     private String street;
 
+    @Size(max = 255)
     @Column(name = "district")
     private String district;
 

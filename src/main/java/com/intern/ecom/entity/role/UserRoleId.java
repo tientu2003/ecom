@@ -2,6 +2,8 @@ package com.intern.ecom.entity.role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -10,9 +12,13 @@ import java.util.Objects;
 @Embeddable
 public class UserRoleId implements Serializable {
     private static final long serialVersionUID = -382827789583125841L;
+    @Size(max = 40)
+    @NotNull
     @Column(name = "uuid_role", nullable = false, length = 40)
     private String uuidRole;
 
+    @Size(max = 40)
+    @NotNull
     @Column(name = "uuid_user", nullable = false, length = 40)
     private String uuidUser;
 

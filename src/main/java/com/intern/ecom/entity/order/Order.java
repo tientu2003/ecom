@@ -2,15 +2,17 @@ package com.intern.ecom.entity.order;
 
 import com.intern.ecom.entity.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.sql.Timestamp;
-
+import java.time.Instant;
 
 @Entity
 @Table(name = "`order`")
 public class Order {
     @Id
+    @Size(max = 40)
     @Column(name = "uuid_order", nullable = false, length = 40)
     private String uuidOrder;
 
@@ -18,56 +20,72 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Size(max = 100)
+    @NotNull
     @Column(name = "session_id", nullable = false, length = 100)
     private String sessionId;
 
+    @Size(max = 100)
+    @NotNull
     @Column(name = "token", nullable = false, length = 100)
     private String token;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "status", nullable = false)
     private Short status;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "subtotal", nullable = false)
     private Double subtotal;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "item_discount", nullable = false)
     private Double itemDiscount;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "tax", nullable = false)
     private Double tax;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "shipping", nullable = false)
     private Double shipping;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "total", nullable = false)
     private Double total;
 
+    @Size(max = 50)
     @Column(name = "promo", length = 50)
     private String promo;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "discount", nullable = false)
     private Double discount;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "grand_total", nullable = false)
     private Double grandTotal;
 
+    @NotNull
     @Column(name = "created_date", nullable = false)
-    private Timestamp createdDate;
+    private Instant createdDate;
 
+    @Size(max = 20)
     @Column(name = "phone", length = 20)
     private String phone;
 
     @Column(name = "updated_date")
-    private Timestamp updatedDate;
+    private Instant updatedDate;
 
+    @Size(max = 10)
     @Column(name = "payment_methods", length = 10)
     private String paymentMethods;
 
@@ -75,6 +93,7 @@ public class Order {
     @Column(name = "note")
     private String note;
 
+    @Size(max = 1000)
     @Column(name = "address_ship", length = 1000)
     private String addressShip;
 
@@ -182,11 +201,11 @@ public class Order {
         this.grandTotal = grandTotal;
     }
 
-    public Timestamp getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -198,11 +217,11 @@ public class Order {
         this.phone = phone;
     }
 
-    public Timestamp getUpdatedDate() {
+    public Instant getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Timestamp updatedDate) {
+    public void setUpdatedDate(Instant updatedDate) {
         this.updatedDate = updatedDate;
     }
 

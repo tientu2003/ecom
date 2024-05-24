@@ -1,15 +1,15 @@
 package com.intern.ecom.entity.attribute;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
-
-import java.sql.Timestamp;
-
+import java.time.Instant;
 
 @Entity
 @Table(name = "attribute")
 public class Attribute {
     @Id
+    @Size(max = 40)
     @Column(name = "uuid_attribute", nullable = false, length = 40)
     private String uuidAttribute;
 
@@ -18,14 +18,15 @@ public class Attribute {
     @JoinColumn(name = "uuid_attribute", nullable = false, referencedColumnName = "uuid_attribute")
     private ProductAttribute productAttribute;
 
+    @Size(max = 40)
     @Column(name = "`key`", length = 40)
     private String key;
 
     @Column(name = "created_date")
-    private Timestamp createdDate;
+    private Instant createdDate;
 
     @Column(name = "updated_date")
-    private Timestamp updatedDate;
+    private Instant updatedDate;
 
     public String getUuidAttribute() {
         return uuidAttribute;
@@ -51,19 +52,19 @@ public class Attribute {
         this.key = key;
     }
 
-    public Timestamp getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Timestamp getUpdatedDate() {
+    public Instant getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Timestamp updatedDate) {
+    public void setUpdatedDate(Instant updatedDate) {
         this.updatedDate = updatedDate;
     }
 

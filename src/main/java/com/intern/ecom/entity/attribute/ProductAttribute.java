@@ -1,28 +1,31 @@
 package com.intern.ecom.entity.attribute;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "product_attribute")
-@IdClass(ProductAttributeId.class)
 public class ProductAttribute {
-    @Id
-    @NotBlank(message = "Attribute ID is required")
-    @Size(max = 40,message = "Length of Attribute ID must be under 40")
+    @Size(max = 40)
+    @NotNull
     @Column(name = "uuid_attribute", nullable = false, length = 40,unique = true)
     private String uuidAttribute;
 
+    @Size(max = 40)
+    @NotNull
     @Id
-    @NotBlank(message = "Product ID is required")
-    @Size(max = 40,message = "Length of Product ID must be under 40")
-    @Column(name = "uuid_product", nullable = false, length = 40, unique = true)
+    @Column(name = "uuid_product", nullable = false, length = 40,unique = true)
     private String uuidProduct;
 
-    @Size(max = 200,message = "Length of Value ProductAttribute must be under 200")
+    @Size(max = 200)
     @Column(name = "value", length = 200)
     private String value;
+
+
 
     public String getUuidAttribute() {
         return uuidAttribute;

@@ -1,14 +1,17 @@
 package com.intern.ecom.entity.product;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
 @Entity
 @Table(name = "product_review")
 public class ProductReview {
     @Id
+    @Size(max = 40)
     @Column(name = "uuid_product_review", nullable = false, length = 40)
     private String uuidProductReview;
 
@@ -24,22 +27,27 @@ public class ProductReview {
     @Column(name = "comment")
     private String comment;
 
+    @Size(max = 100)
+    @NotNull
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "rating", nullable = false)
     private Short rating;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "published", nullable = false)
     private Short published;
 
+    @NotNull
     @Column(name = "created_date", nullable = false)
-    private Timestamp createdDate;
+    private Instant createdDate;
 
     @Column(name = "updated_date")
-    private Timestamp updatedDate;
+    private Instant updatedDate;
 
     public String getUuidProductReview() {
         return uuidProductReview;
@@ -97,19 +105,19 @@ public class ProductReview {
         this.published = published;
     }
 
-    public Timestamp getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Timestamp getUpdatedDate() {
+    public Instant getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Timestamp updatedDate) {
+    public void setUpdatedDate(Instant updatedDate) {
         this.updatedDate = updatedDate;
     }
 

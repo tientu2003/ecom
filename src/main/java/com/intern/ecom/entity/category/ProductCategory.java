@@ -2,33 +2,21 @@ package com.intern.ecom.entity.category;
 
 import com.intern.ecom.entity.product.Product;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "product_category")
 public class ProductCategory {
     @Id
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "uuid_product", nullable = false,unique = true)
-    private Product uuidProduct;
+    private ProductCategoryId id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "uuid_category", nullable = false,unique = true)
-    private Category uuidCategory;
-
-    public Product getUuidProduct() {
-        return uuidProduct;
+    public ProductCategoryId getId() {
+        return id;
     }
 
-    public void setUuidProduct(Product uuidProduct) {
-        this.uuidProduct = uuidProduct;
+    public void setId(ProductCategoryId id) {
+        this.id = id;
     }
 
-    public Category getUuidCategory() {
-        return uuidCategory;
-    }
-
-    public void setUuidCategory(Category uuidCategory) {
-        this.uuidCategory = uuidCategory;
-    }
 
 }

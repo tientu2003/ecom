@@ -1,6 +1,8 @@
 package com.intern.ecom.entity.product;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -8,6 +10,7 @@ import java.time.LocalDate;
 @Table(name = "branch")
 public class Branch {
     @Id
+    @Size(max = 40)
     @Column(name = "uuid_branch", nullable = false, length = 40)
     private String uuidBranch;
 
@@ -16,6 +19,7 @@ public class Branch {
     @JoinColumn(name = "uuid_branch", nullable = false, referencedColumnName = "uuid_branch")
     private Product product;
 
+    @Size(max = 255)
     @Column(name = "name")
     private String name;
 
@@ -25,7 +29,9 @@ public class Branch {
     @Column(name = "updated_date")
     private LocalDate updatedDate;
 
-    @Column(name = "uuid_user", nullable = false, length = 40,unique = true)
+    @Size(max = 40)
+    @NotNull
+    @Column(name = "uuid_user", nullable = false, length = 40)
     private String uuidUser;
 
     public String getUuidBranch() {

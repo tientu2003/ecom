@@ -2,42 +2,51 @@ package com.intern.ecom.entity.order;
 
 import com.intern.ecom.entity.product.Product;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
 @Entity
 @Table(name = "order_item")
 public class OrderItem {
     @Id
+    @Size(max = 40)
     @Column(name = "uuid_order_item", nullable = false, length = 40)
     private String uuidOrderItem;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "uuid_product", nullable = false)
     private Product uuidProduct;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "uuid_order", nullable = false)
     private Order uuidOrder;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "price", nullable = false)
     private Double price;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "discount", nullable = false)
     private Double discount;
 
+    @NotNull
     @ColumnDefault("0")
     @Column(name = "quantity", nullable = false)
     private Short quantity;
 
+    @NotNull
     @Column(name = "created_date", nullable = false)
-    private Timestamp createdDate;
+    private Instant createdDate;
 
     @Column(name = "updated_date")
-    private Timestamp updatedDate;
+    private Instant updatedDate;
 
     @Lob
     @Column(name = "content")
@@ -91,19 +100,19 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public Timestamp getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Timestamp getUpdatedDate() {
+    public Instant getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Timestamp updatedDate) {
+    public void setUpdatedDate(Instant updatedDate) {
         this.updatedDate = updatedDate;
     }
 

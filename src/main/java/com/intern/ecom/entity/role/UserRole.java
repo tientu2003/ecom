@@ -2,6 +2,8 @@ package com.intern.ecom.entity.role;
 
 import com.intern.ecom.entity.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "user_role")
@@ -11,8 +13,21 @@ public class UserRole {
 
     @MapsId("uuidUser")
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "uuid_user", nullable = false)
-    private User uuidUser;
+    @JoinColumn(name = "uuid_user", nullable = false, referencedColumnName = "uuid_user")
+    private User user;
+
+    @MapsId("uuidRole")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "uuid_role", nullable = false, insertable = false, updatable = false)
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public UserRoleId getId() {
         return id;
@@ -22,12 +37,12 @@ public class UserRole {
         this.id = id;
     }
 
-    public User getUuidUser() {
-        return uuidUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setUuidUser(User uuidUser) {
-        this.uuidUser = uuidUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

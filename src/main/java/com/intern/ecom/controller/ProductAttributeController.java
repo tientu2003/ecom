@@ -20,7 +20,10 @@ public class ProductAttributeController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductAttribute> createProductAttribute(@Valid @RequestBody ProductAttribute productAttribute, UriComponentsBuilder ucb) {
+    public ResponseEntity<ProductAttribute> createProductAttribute(
+            @Valid @RequestBody ProductAttribute productAttribute,
+            UriComponentsBuilder ucb) {
+
         ProductAttribute savedProductAttribute = productAttributeRepository.save(productAttribute);
         URI locationOfNewProductAttribute = ucb
                 .path("product-attributes/{id}")
@@ -30,15 +33,48 @@ public class ProductAttributeController {
     }
 
     @GetMapping("/{requiredId}")
-    public ResponseEntity<ProductAttribute> findProductAttributeByProductId(@PathVariable("requiredId") String requiredId) {
-        Optional<ProductAttribute> productAttribute = productAttributeRepository.findByUuidProduct(requiredId);
-        if (productAttribute.isPresent()) {
-            return ResponseEntity.ok().body(productAttribute.get());
+    public ResponseEntity<ProductAttribute> findProductAttributeByProductId(
+            @PathVariable("requiredId") String requiredId) {
+
+        Optional<ProductAttribute> productAttributeOptional = productAttributeRepository.findByUuidProduct(requiredId);
+
+        if (productAttributeOptional.isPresent()) {
+            return ResponseEntity.ok().body(productAttributeOptional.get());
         }else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    @PutMapping
+    public ResponseEntity<ProductAttribute> updateProductAttribute(
+            @Valid @RequestBody ProductAttribute productAttribute) {
 
+        Optional<ProductAttribute> productAttributeOptional = productAttributeRepository
+                .findByUuidProduct( productAttribute.getUuidProduct());
+
+        if (productAttributeOptional.isPresent()) {
+            ProductAttribute updatedProductAttribute = productAttributeOptional.get();
+            updatedProductAttribute.setUuidAttribute(productAttribute.getUuidAttribute());
+            updatedProductAttribute.setValue(productAttribute.getValue());
+            productAttributeRepository.save(updatedProductAttribute);
+            return ResponseEntity.accepted().body(updatedProductAttribute);
+        }
+        return ResponseEntity.status(501).build();
+    }
+
+    @DeleteMapping("/{requiredId}")
+    public ResponseEntity<ProductAttribute> deleteProductAttribute(
+            @PathVariable("requiredId") String requiredId) {
+
+        Optional<ProductAttribute> productAttribute = productAttributeRepository
+                .findByUuidProduct(requiredId);
+
+        if (productAttribute.isPresent()) {
+          productAttributeRepository.deleteById(productAttribute.get().getUuidProduct());
+          return ResponseEntity.accepted().body(productAttribute.get());
+        }else{
+            return ResponseEntity.status(501).build();
+        }
+    }
 
 }

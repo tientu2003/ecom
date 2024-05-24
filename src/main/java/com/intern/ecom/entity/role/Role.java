@@ -1,17 +1,17 @@
 package com.intern.ecom.entity.role;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "role")
 public class Role {
     @Id
+    @Size(max = 40)
     @Column(name = "uuid_role", nullable = false, length = 40)
     private String uuidRole;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "uuid_role", nullable = false, referencedColumnName = "uuid_role")
+    @OneToOne(fetch = FetchType.LAZY, optional = false, mappedBy = "role")
     private UserRole userRole;
 
     @Column(name = "name")
